@@ -94,8 +94,12 @@ class GanttVisualizer:
 
         # Add bars for each activity
         for i, task in enumerate(gantt_data):
+            # Calculate duration in milliseconds for Plotly
+            duration_ms = (task['Finish'] - task['Start']).total_seconds() * 1000
+            duration_days = (task['Finish'] - task['Start']).days
+
             fig.add_trace(go.Bar(
-                x=[task['Finish'] - task['Start']],
+                x=[duration_ms],
                 y=[task['Task']],
                 base=task['Start'],
                 orientation='h',
@@ -106,7 +110,7 @@ class GanttVisualizer:
                     f"<b>{task['Task']}</b><br>"
                     f"Start: {task['Start'].strftime('%Y-%m-%d')}<br>"
                     f"Finish: {task['Finish'].strftime('%Y-%m-%d')}<br>"
-                    f"Duration: {(task['Finish'] - task['Start']).days} days<br>"
+                    f"Duration: {duration_days} days<br>"
                     f"Progress: {task['Complete']:.0f}%<br>"
                     "<extra></extra>"
                 )
@@ -189,15 +193,18 @@ class GanttVisualizer:
 
         # Add baseline bars
         baseline_df = df[df['Type'] == 'Baseline']
-        for _, row in baseline_df.iterrows():
+        for idx, row in baseline_df.iterrows():
+            # Calculate duration in milliseconds for Plotly
+            duration_ms = (row['Finish'] - row['Start']).total_seconds() * 1000
+
             fig.add_trace(go.Bar(
-                x=[row['Finish'] - row['Start']],
+                x=[duration_ms],
                 y=[row['Task']],
                 base=row['Start'],
                 orientation='h',
                 marker=dict(color='rgba(100, 100, 255, 0.5)'),
                 name='Baseline',
-                showlegend=(row.name == baseline_df.index[0]),
+                showlegend=bool(idx == baseline_df.index[0]),
                 hovertemplate=(
                     f"<b>Baseline</b><br>"
                     f"{row['Task']}<br>"
@@ -209,15 +216,18 @@ class GanttVisualizer:
 
         # Add current bars
         current_df = df[df['Type'] == 'Current']
-        for _, row in current_df.iterrows():
+        for idx, row in current_df.iterrows():
+            # Calculate duration in milliseconds for Plotly
+            duration_ms = (row['Finish'] - row['Start']).total_seconds() * 1000
+
             fig.add_trace(go.Bar(
-                x=[row['Finish'] - row['Start']],
+                x=[duration_ms],
                 y=[row['Task']],
                 base=row['Start'],
                 orientation='h',
                 marker=dict(color='rgba(255, 100, 100, 0.5)'),
                 name='Current',
-                showlegend=(row.name == current_df.index[0]),
+                showlegend=bool(idx == current_df.index[0]),
                 hovertemplate=(
                     f"<b>Current</b><br>"
                     f"{row['Task']}<br>"
@@ -300,8 +310,11 @@ class GanttVisualizer:
         fig = go.Figure()
 
         for task in gantt_data:
+            # Calculate duration in milliseconds for Plotly
+            duration_ms = (task['Finish'] - task['Start']).total_seconds() * 1000
+
             fig.add_trace(go.Bar(
-                x=[task['Finish'] - task['Start']],
+                x=[duration_ms],
                 y=[task['Task']],
                 base=task['Start'],
                 orientation='h',

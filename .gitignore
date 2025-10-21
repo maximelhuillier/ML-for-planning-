@@ -56,9 +56,12 @@ data/sample_files/*.xer
 data/sample_files/*.mpp
 data/sample_files/*.xml
 
-# Excel exports
+# Excel exports and test files
 *.xlsx
+*.html
 reports/
+test_*.xlsx
+test_*.html
 
 # Logs
 *.log
