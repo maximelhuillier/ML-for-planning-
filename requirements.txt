@@ -1,0 +1,39 @@
+# Web Framework
+streamlit==1.31.0
+
+# Data Processing
+pandas==2.1.4
+numpy==1.26.3
+
+# Date/Time Handling
+python-dateutil==2.8.2
+
+# Visualization
+plotly==5.18.0
+matplotlib==3.8.2
+
+# Excel Export
+openpyxl==3.1.2
+xlsxwriter==3.1.9
+
+# XER File Parsing (Primavera P6)
+xerparser==0.9.2
+
+# MPP File Parsing (MS Project)
+# Note: mpxj requires Java Runtime Environment (JRE)
+jpype1==1.4.1
+
+# Network Analysis
+networkx==3.2.1
+
+# ML for predictions (optional, for future enhancements)
+scikit-learn==1.4.0
+
+# Progress bars
+tqdm==4.66.1
+
+# File handling
+pathlib2==2.3.7.post1
+
+# Type hints
+typing-extensions==4.9.0
